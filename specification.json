@@ -1,0 +1,434 @@
+{
+  "schema": "elucenia-public-research-specification-v1",
+  "id": "iedb-analysis-resource",
+  "provider": "iedb",
+  "implementationVersion": "ELUCENIA-research-api-2026-10-05-v3",
+  "policy": {
+    "url": "https://tools-cluster-interface.iedb.org/tools_api/mhci/",
+    "method": "smm-1.0",
+    "alleles": [
+      "HLA-A*01:01",
+      "HLA-A*02:01"
+    ],
+    "length": 9,
+    "maxSequence": 200
+  },
+  "transportLimits": {
+    "requestMs": 90000,
+    "workflowMs": 120000,
+    "clientMs": 125000,
+    "routeSeconds": 125,
+    "retry": false
+  },
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "sequence": {
+        "type": "string",
+        "minLength": 9,
+        "maxLength": 200,
+        "pattern": "^[ACDEFGHIKLMNPQRSTVWY]+$"
+      },
+      "allele": {
+        "enum": [
+          "HLA-A*01:01",
+          "HLA-A*02:01"
+        ]
+      },
+      "publicResearchData": {
+        "const": true,
+        "description": "Only public or synthetic research inputs; no patient/confidential data."
+      }
+    },
+    "required": [
+      "sequence",
+      "allele",
+      "publicResearchData"
+    ],
+    "additionalProperties": false
+  },
+  "responseSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "toolId": {
+        "const": "iedb-analysis-resource"
+      },
+      "implementationVersion": {
+        "const": "ELUCENIA-research-api-2026-10-05-v3"
+      },
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "sequence": {
+            "type": "string",
+            "minLength": 9,
+            "maxLength": 200,
+            "pattern": "^[ACDEFGHIKLMNPQRSTVWY]+$"
+          },
+          "allele": {
+            "enum": [
+              "HLA-A*01:01",
+              "HLA-A*02:01"
+            ]
+          },
+          "publicResearchData": {
+            "const": true,
+            "description": "Only public or synthetic research inputs; no patient/confidential data."
+          }
+        },
+        "required": [
+          "sequence",
+          "allele",
+          "publicResearchData"
+        ],
+        "additionalProperties": false
+      },
+      "retrievedAt": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "sources": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "format": "uri"
+        },
+        "minItems": 3,
+        "maxItems": 4
+      },
+      "rows": {
+        "type": "array",
+        "items": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "type": "object",
+          "properties": {
+            "allele": {
+              "enum": [
+                "HLA-A*01:01",
+                "HLA-A*02:01"
+              ]
+            },
+            "start": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "end": {
+              "type": "integer",
+              "minimum": 9
+            },
+            "length": {
+              "const": 9
+            },
+            "peptide": {
+              "type": "string",
+              "minLength": 9,
+              "maxLength": 9
+            },
+            "ic50Nanomolar": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "percentileRank": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            }
+          },
+          "required": [
+            "allele",
+            "start",
+            "end",
+            "length",
+            "peptide",
+            "ic50Nanomolar",
+            "percentileRank"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "review": {
+        "type": "object",
+        "properties": {
+          "engineeringScope": {
+            "type": "string"
+          },
+          "clinical": {
+            "const": "not-approved"
+          },
+          "professionalLanguage": {
+            "const": "not-approved"
+          }
+        },
+        "required": [
+          "engineeringScope",
+          "clinical",
+          "professionalLanguage"
+        ],
+        "additionalProperties": false
+      },
+      "version": {
+        "type": "object",
+        "properties": {
+          "method": {
+            "const": "smm-1.0"
+          },
+          "methodVersion": {
+            "const": "1.0"
+          },
+          "apiReleaseDocumented": {
+            "const": "2.15"
+          },
+          "runtimeModelHash": {
+            "const": null
+          },
+          "runtimeVersionDisclosure": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "method",
+          "methodVersion",
+          "apiReleaseDocumented",
+          "runtimeModelHash",
+          "runtimeVersionDisclosure"
+        ],
+        "additionalProperties": false
+      },
+      "rights": {
+        "type": "object",
+        "properties": {
+          "apiDocumentation": {
+            "type": "string",
+            "format": "uri"
+          },
+          "usageGuidelines": {
+            "type": "string",
+            "format": "uri"
+          },
+          "methodPublication": {
+            "type": "string",
+            "format": "uri"
+          },
+          "selectedMethod": {
+            "type": "string"
+          },
+          "publicationNonAcademicRestriction": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "apiDocumentation",
+          "usageGuidelines",
+          "methodPublication",
+          "selectedMethod",
+          "publicationNonAcademicRestriction"
+        ],
+        "additionalProperties": false
+      },
+      "scope": {
+        "type": "object",
+        "properties": {
+          "class": {
+            "const": "MHC I"
+          },
+          "length": {
+            "const": 9
+          },
+          "alleles": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "HLA-A*01:01",
+                "HLA-A*02:01"
+              ]
+            },
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "clinicalValidation": {
+            "const": false
+          }
+        },
+        "required": [
+          "class",
+          "length",
+          "alleles",
+          "clinicalValidation"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "required": [
+      "toolId",
+      "implementationVersion",
+      "input",
+      "retrievedAt",
+      "sources",
+      "rows",
+      "review",
+      "version",
+      "rights",
+      "scope"
+    ],
+    "additionalProperties": false
+  },
+  "sources": [
+    "https://tools.iedb.org/main/tools-api/",
+    "https://tools.iedb.org/main/usage-guidelines/",
+    "https://tools.iedb.org/analyze/pdf/peters_2005_bmc_bioinformatics.pdf"
+  ],
+  "docs": [
+    {
+      "locale": "pt-BR",
+      "path": "documentation/pt-BR.md",
+      "sha256": "f7805fc1f901a69c1d7702e1935cbf76c4a864af4e65ddf09f865e3505c7a6f3",
+      "bytes": 2920
+    },
+    {
+      "locale": "en",
+      "path": "documentation/en.md",
+      "sha256": "59192e910b7b12360c925afcbee590ae02df604a79c8d98b6e394606e0d85e85",
+      "bytes": 2773
+    },
+    {
+      "locale": "es",
+      "path": "documentation/es.md",
+      "sha256": "7ff24b948aff2d388834194f5c0db1b2d87dcd9adba443b6dc623c07d353d08e",
+      "bytes": 2971
+    },
+    {
+      "locale": "fr",
+      "path": "documentation/fr.md",
+      "sha256": "32d889c2a6a9cb48a65bcfec7dc1dfec90915d44599ae1096e1d1cff62faeeb1",
+      "bytes": 3106
+    },
+    {
+      "locale": "de",
+      "path": "documentation/de.md",
+      "sha256": "2b48b471ce24061451bc9816f1ab97239226cf6f9f09e98c88f0f9d395134e82",
+      "bytes": 3061
+    },
+    {
+      "locale": "it",
+      "path": "documentation/it.md",
+      "sha256": "e3c133b52f5ab39dac634a794feb08bf1ed37112f8efc21bc5d3740ebff77ba5",
+      "bytes": 2928
+    },
+    {
+      "locale": "ar",
+      "path": "documentation/ar.md",
+      "sha256": "357baf9a8f9506280a4434d7b3a50c369a3bf6b2e14aef2b9b7f4ea8b8ca7d21",
+      "bytes": 3673
+    },
+    {
+      "locale": "zh",
+      "path": "documentation/zh.md",
+      "sha256": "127c9252481e5b8bda4984e7bd1c76d860b54ab00c669226c47c041d6d1f0a4f",
+      "bytes": 2567
+    },
+    {
+      "locale": "ja",
+      "path": "documentation/ja.md",
+      "sha256": "679cd5503a9c2076bd2c2daf5e86f46bc18e32f61836633941ea98601c670597",
+      "bytes": 3227
+    },
+    {
+      "locale": "hi",
+      "path": "documentation/hi.md",
+      "sha256": "0c24e77ae8d0c13fb1d7a796eba345ae94aa44e23408a193badd732ad9eb9315",
+      "bytes": 5430
+    }
+  ],
+  "scopeByLocale": {
+    "pt-BR": "SMM 1.0, MHC I, peptídeos de 9 aminoácidos; alelos HLA-A*01:01 e HLA-A*02:01. Sequência de 9 a 200 aminoácidos padrão. IC50 prevista em nM e posição percentual não são medidas experimentais nem prova de imunogenicidade.",
+    "en": "SMM 1.0, MHC I, 9-amino-acid peptides; HLA-A*01:01 and HLA-A*02:01 alleles. Input sequence: 9–200 standard amino acids. Predicted IC50 in nM and percentile rank are not experimental measurements or proof of immunogenicity.",
+    "es": "SMM 1.0, MHC I, péptidos de 9 aminoácidos; alelos HLA-A*01:01 y HLA-A*02:01. Secuencia de 9 a 200 aminoácidos estándar. La IC50 prevista en nM y el rango percentil no son mediciones experimentales ni prueban inmunogenicidad.",
+    "fr": "SMM 1.0, CMH I, peptides de 9 acides aminés ; allèles HLA-A*01:01 et HLA-A*02:01. Séquence de 9 à 200 acides aminés standard. L’IC50 prédite en nM et le rang centile ne sont ni mesures expérimentales ni preuves d’immunogénicité.",
+    "de": "SMM 1.0, MHC I, Peptide mit 9 Aminosäuren; Allele HLA-A*01:01 und HLA-A*02:01. Sequenz mit 9–200 Standardaminosäuren. Vorhergesagte IC50 in nM und Perzentilrang sind keine experimentellen Messungen oder Nachweise der Immunogenität.",
+    "it": "SMM 1.0, MHC I, peptidi di 9 amminoacidi; alleli HLA-A*01:01 e HLA-A*02:01. Sequenza di 9–200 amminoacidi standard. IC50 prevista in nM e rango percentile non sono misure sperimentali né prove di immunogenicità.",
+    "ar": "SMM 1.0، MHC I، ببتيدات بطول 9 أحماض أمينية؛ الأليلان HLA-A*01:01 وHLA-A*02:01. تسلسل من 9 إلى 200 حمض أميني قياسي. IC50 المتوقعة بوحدة nM والرتبة المئينية ليستا قياسات تجريبية أو إثباتًا للمناعية.",
+    "zh": "SMM 1.0，MHC I，9 个氨基酸长度的肽；HLA-A*01:01 和 HLA-A*02:01 等位基因。输入序列包含 9–200 个标准氨基酸。预测 IC50（nM）和百分位排名不是实验测量，也不能证明免疫原性。",
+    "ja": "SMM 1.0、MHC I、9アミノ酸ペプチド。HLA-A*01:01とHLA-A*02:01。入力は9～200の標準アミノ酸。予測IC50（nM）とパーセンタイル順位は実験測定値でも免疫原性の証明でもありません。",
+    "hi": "SMM 1.0, MHC I, 9 अमीनो अम्ल वाले पेप्टाइड; एलील HLA-A*01:01 और HLA-A*02:01। अनुक्रम में 9–200 मानक अमीनो अम्ल। nM में अनुमानित IC50 और प्रतिशतक रैंक प्रयोगात्मक माप या प्रतिरक्षाजनकता का प्रमाण नहीं हैं।"
+  },
+  "reviewAndRightsByLocale": {
+    "pt-BR": {
+      "review": "Interface e contratos implementados na ELUCENIA. A análise depende da disponibilidade do serviço responsável. Revisão clínica independente e revisão linguística profissional não concluídas.",
+      "rights": "Acesso à API IEDB conforme suas orientações de uso; somente SMM 1.0 e dois alelos documentados. Nenhum binário DTU é redistribuído. A previsão de ligação não demonstra imunogenicidade nem eficácia.",
+      "methodDisclosure": "O método SMM 1.0 é solicitado explicitamente. A documentação informa a API 2.15; a resposta não expõe o hash do modelo binário em execução."
+    },
+    "en": {
+      "review": "Interface and contracts implemented on ELUCENIA. Analysis depends on the responsible service being available. Independent clinical review and professional language review are incomplete.",
+      "rights": "IEDB API access follows its usage guidelines; only SMM 1.0 and two documented alleles are supported. No DTU binaries are redistributed. Binding prediction does not establish immunogenicity or efficacy.",
+      "methodDisclosure": "SMM 1.0 is requested explicitly. The documentation identifies API 2.15; the response does not expose the running binary model hash."
+    },
+    "es": {
+      "review": "Interfaz y contratos implementados en ELUCENIA. El análisis depende de la disponibilidad del servicio responsable. No se han completado la revisión clínica independiente ni la revisión lingüística profesional.",
+      "rights": "El acceso a la API IEDB sigue sus directrices de uso; solo se admiten SMM 1.0 y dos alelos documentados. No se redistribuyen binarios DTU. La predicción de unión no demuestra inmunogenicidad ni eficacia.",
+      "methodDisclosure": "Se solicita explícitamente SMM 1.0. La documentación identifica la API 2.15; la respuesta no expone el hash del modelo binario en ejecución."
+    },
+    "fr": {
+      "review": "Interface et contrats implémentés dans ELUCENIA. L’analyse dépend de la disponibilité du service responsable. La révision clinique indépendante et la révision linguistique professionnelle ne sont pas achevées.",
+      "rights": "L’accès à l’API IEDB suit ses consignes d’utilisation ; seuls SMM 1.0 et deux allèles documentés sont pris en charge. Aucun binaire DTU n’est redistribué. La prédiction de liaison ne démontre ni immunogénicité ni efficacité.",
+      "methodDisclosure": "SMM 1.0 est demandé explicitement. La documentation indique l’API 2.15 ; la réponse ne fournit pas l’empreinte du modèle binaire exécuté."
+    },
+    "de": {
+      "review": "Oberfläche und Schnittstellenverträge sind in ELUCENIA implementiert. Die Analyse hängt von der Verfügbarkeit des zuständigen Dienstes ab. Die unabhängige klinische Prüfung und die professionelle sprachliche Prüfung sind nicht abgeschlossen.",
+      "rights": "Der Zugriff auf die IEDB-API folgt deren Nutzungshinweisen; unterstützt werden nur SMM 1.0 und zwei dokumentierte Allele. Es werden keine DTU-Binärdateien weitergegeben. Bindungsvorhersagen belegen weder Immunogenität noch Wirksamkeit.",
+      "methodDisclosure": "SMM 1.0 wird ausdrücklich angefordert. Die Dokumentation nennt API 2.15; die Antwort legt den Hash des ausgeführten binären Modells nicht offen."
+    },
+    "it": {
+      "review": "Interfaccia e contratti implementati in ELUCENIA. L’analisi dipende dalla disponibilità del servizio responsabile. La revisione clinica indipendente e la revisione linguistica professionale non sono complete.",
+      "rights": "L’accesso all’API IEDB segue le sue linee guida d’uso; sono supportati solo SMM 1.0 e due alleli documentati. Non vengono redistribuiti binari DTU. La previsione di legame non dimostra immunogenicità o efficacia.",
+      "methodDisclosure": "SMM 1.0 viene richiesto esplicitamente. La documentazione indica API 2.15; la risposta non espone l’hash del modello binario in esecuzione."
+    },
+    "ar": {
+      "review": "تم تنفيذ الواجهة وعقود الطلب والاستجابة داخل ELUCENIA. يعتمد التحليل على توفر الخدمة المسؤولة. لم تكتمل المراجعة السريرية المستقلة ولا المراجعة اللغوية المهنية.",
+      "rights": "يتبع الوصول إلى واجهة IEDB إرشادات الاستخدام؛ لا يُدعم سوى SMM 1.0 وأليلين موثقين. لا تُعاد مشاركة ملفات DTU الثنائية. لا يثبت توقع الارتباط المناعية أو الفعالية.",
+      "methodDisclosure": "يُطلب SMM 1.0 صراحةً. تحدد الوثائق واجهة API 2.15؛ ولا تكشف الاستجابة بصمة التجزئة للنموذج الثنائي قيد التشغيل."
+    },
+    "zh": {
+      "review": "ELUCENIA已实现界面及请求和响应契约。分析依赖相应服务的可用性。独立临床审核和专业语言审核尚未完成。",
+      "rights": "IEDB API访问遵循其使用指南；仅支持SMM 1.0及两个已记录的等位基因。不重新分发DTU二进制程序。结合预测不能证明免疫原性或疗效。",
+      "methodDisclosure": "请求明确指定SMM 1.0。文档标明API 2.15；响应不提供正在运行的二进制模型哈希。"
+    },
+    "ja": {
+      "review": "ELUCENIA内に画面とリクエスト・レスポンスの契約を実装しています。解析には提供元サービスの稼働が必要です。独立した臨床レビューと専門家による言語レビューは完了していません。",
+      "rights": "IEDB APIへのアクセスは利用ガイドラインに従います。SMM 1.0と文書化された2つのアレルのみを対象とし、DTUのバイナリは再配布しません。結合予測は免疫原性や有効性を証明するものではありません。",
+      "methodDisclosure": "SMM 1.0を明示的に指定します。文書にはAPI 2.15と記載されていますが、レスポンスには実行中のバイナリモデルのハッシュが含まれていません。"
+    },
+    "hi": {
+      "review": "ELUCENIA में इंटरफ़ेस और अनुरोध तथा प्रतिक्रिया अनुबंध लागू हैं। विश्लेषण संबंधित सेवा की उपलब्धता पर निर्भर है। स्वतंत्र नैदानिक समीक्षा और पेशेवर भाषा समीक्षा पूरी नहीं हुई हैं।",
+      "rights": "IEDB API तक पहुँच उसके उपयोग दिशानिर्देशों के अनुसार है; केवल SMM 1.0 और दो दस्तावेज़ित एलील समर्थित हैं। DTU बाइनरी पुनर्वितरित नहीं की जातीं। बाइंडिंग का अनुमान प्रतिरक्षाजनकता या प्रभावशीलता सिद्ध नहीं करता।",
+      "methodDisclosure": "SMM 1.0 का स्पष्ट अनुरोध किया जाता है। दस्तावेज़ API 2.15 बताते हैं; प्रतिक्रिया चल रहे बाइनरी मॉडल का हैश नहीं देती।"
+    }
+  },
+  "interfaceKeys": [
+    "sequence",
+    "allele",
+    "confirm"
+  ],
+  "resultKeys": [
+    "allele",
+    "peptide",
+    "start",
+    "end",
+    "ic50",
+    "percentileRank"
+  ],
+  "publicInputOnly": true,
+  "fullProviderImplemented": false,
+  "numericalReferenceCasesAdded": 0,
+  "approval": {
+    "clinical": "not-performed",
+    "professionalLanguage": "not-performed"
+  },
+  "sourceSnapshot": {
+    "websiteFreezeSha256": "b7ff37bd2e4c18b959c3431d9ff57d8ec654fbafacb0443eaea8be0c4a68b435",
+    "methodTransportSha256": "b862226c9d3b9956848ef29eb03177e6c4b64e8c2157f1ca360611c4ba1de036",
+    "providerLockSha256": "08ecf09dfdc0577008a720df82735ca26fc1bec2e1e8f7a49cb2817d2a86a9f1"
+  }
+}

@@ -1,0 +1,267 @@
+{
+  "schema": "elucenia-public-research-package-test-evidence-v1",
+  "id": "iedb-analysis-resource",
+  "node": "v22.18.0",
+  "command": "node test.cjs",
+  "defaultExecutedTwice": true,
+  "defaultReadOnly": true,
+  "tests": 56,
+  "passed": 56,
+  "failed": 0,
+  "scope": "Offline replays of captured official public/synthetic API responses, exact request/response/version/bounds/locale/timeout/shared-lock contracts. No network, browser, private portal/session or independent provider-model/clinical validation.",
+  "results": [
+    {
+      "name": "fixed public example schema",
+      "pass": true
+    },
+    {
+      "name": "provider-specific bounded request deadlines",
+      "pass": true
+    },
+    {
+      "name": "aggregate timeout cannot expand",
+      "pass": true
+    },
+    {
+      "name": "input refusal unknown-key",
+      "pass": true
+    },
+    {
+      "name": "input refusal confirmation",
+      "pass": true
+    },
+    {
+      "name": "input refusal null",
+      "pass": true
+    },
+    {
+      "name": "input refusal array",
+      "pass": true
+    },
+    {
+      "name": "input refusal missing",
+      "pass": true
+    },
+    {
+      "name": "complete response contract",
+      "pass": true
+    },
+    {
+      "name": "implementation identity",
+      "pass": true
+    },
+    {
+      "name": "provider/source identity",
+      "pass": true
+    },
+    {
+      "name": "expected official response checks",
+      "pass": true
+    },
+    {
+      "name": "response refusal version",
+      "pass": true
+    },
+    {
+      "name": "response refusal rights",
+      "pass": true
+    },
+    {
+      "name": "response refusal unexpected",
+      "pass": true
+    },
+    {
+      "name": "response refusal source",
+      "pass": true
+    },
+    {
+      "name": "response refusal time",
+      "pass": true
+    },
+    {
+      "name": "response refusal identity",
+      "pass": true
+    },
+    {
+      "name": "response refusal numeric",
+      "pass": true
+    },
+    {
+      "name": "bounds 0",
+      "pass": true
+    },
+    {
+      "name": "bounds 1",
+      "pass": true
+    },
+    {
+      "name": "bounds 2",
+      "pass": true
+    },
+    {
+      "name": "bounds 3",
+      "pass": true
+    },
+    {
+      "name": "bounds 4",
+      "pass": true
+    },
+    {
+      "name": "pt-BR authored interface/scope/rights/documentation",
+      "pass": true
+    },
+    {
+      "name": "pt-BR decimal/digit conditional",
+      "pass": true
+    },
+    {
+      "name": "en authored interface/scope/rights/documentation",
+      "pass": true
+    },
+    {
+      "name": "en decimal/digit conditional",
+      "pass": true
+    },
+    {
+      "name": "es authored interface/scope/rights/documentation",
+      "pass": true
+    },
+    {
+      "name": "es decimal/digit conditional",
+      "pass": true
+    },
+    {
+      "name": "fr authored interface/scope/rights/documentation",
+      "pass": true
+    },
+    {
+      "name": "fr decimal/digit conditional",
+      "pass": true
+    },
+    {
+      "name": "de authored interface/scope/rights/documentation",
+      "pass": true
+    },
+    {
+      "name": "de decimal/digit conditional",
+      "pass": true
+    },
+    {
+      "name": "it authored interface/scope/rights/documentation",
+      "pass": true
+    },
+    {
+      "name": "it decimal/digit conditional",
+      "pass": true
+    },
+    {
+      "name": "ar authored interface/scope/rights/documentation",
+      "pass": true
+    },
+    {
+      "name": "ar decimal/digit conditional",
+      "pass": true
+    },
+    {
+      "name": "zh authored interface/scope/rights/documentation",
+      "pass": true
+    },
+    {
+      "name": "zh decimal/digit conditional",
+      "pass": true
+    },
+    {
+      "name": "ja authored interface/scope/rights/documentation",
+      "pass": true
+    },
+    {
+      "name": "ja decimal/digit conditional",
+      "pass": true
+    },
+    {
+      "name": "hi authored interface/scope/rights/documentation",
+      "pass": true
+    },
+    {
+      "name": "hi decimal/digit conditional",
+      "pass": true
+    },
+    {
+      "name": "HTTP refusal foreign origin",
+      "pass": true
+    },
+    {
+      "name": "HTTP refusal cross-site",
+      "pass": true
+    },
+    {
+      "name": "HTTP refusal wrong media",
+      "pass": true
+    },
+    {
+      "name": "HTTP refusal encoding",
+      "pass": true
+    },
+    {
+      "name": "HTTP refusal body cap",
+      "pass": true
+    },
+    {
+      "name": "HTTP refusal bad length",
+      "pass": true
+    },
+    {
+      "name": "HTTP refusal malformed JSON",
+      "pass": true
+    },
+    {
+      "name": "HTTP refusal wrong method",
+      "pass": true
+    },
+    {
+      "name": "HTTP offline response",
+      "pass": true
+    },
+    {
+      "name": "upstream timeout is explicit",
+      "pass": true
+    },
+    {
+      "name": "wrong provider version/shape refuses response",
+      "pass": true
+    },
+    {
+      "name": "shared lock and interrupted IEDB cooldown",
+      "pass": true
+    }
+  ],
+  "localServerRejections": [
+    {
+      "name": "unknown route",
+      "status": 404,
+      "expected": 404
+    },
+    {
+      "name": "wrong method",
+      "status": 405,
+      "expected": 405
+    },
+    {
+      "name": "invalid confirmation",
+      "status": 422,
+      "expected": 422
+    },
+    {
+      "name": "foreign origin",
+      "status": 403,
+      "expected": 403
+    }
+  ],
+  "sourceReceiptHash": "eb435a7e85d414decd56918fd8cf8a7f377bc1b4f6371e7b8822555f019399eb",
+  "notClaimed": [
+    "compiled ELUCENIA HTTP/browser",
+    "provider algorithm replication",
+    "clinical approval",
+    "professional language review"
+  ]
+}

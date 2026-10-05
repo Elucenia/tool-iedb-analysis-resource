@@ -1,0 +1,32 @@
+[
+  {
+    "url": "https://tools-cluster-interface.iedb.org/tools_api/mhci/",
+    "method": "POST",
+    "input": "method=smm-1.0&sequence_text=SLYNTVATLYCVHQRIDV&allele=HLA-A*01%3A01&length=9",
+    "status": 200,
+    "sha256": "f4b052d1379df8e886e5afbccdaa43e8b9b7649081aff84b87dce38b5140e00a",
+    "bytes": 493,
+    "contentType": "text/tsv",
+    "retrievedAt": "2026-10-05T13:43:49.771Z",
+    "file": "response-01.txt",
+    "originalReceipt": {
+      "folder": "live-services-r1",
+      "sha256": "49177aa88e927f9e029ee4c1a3e5507d53b78bd74a63f4e67d2c3346e00c55eb"
+    }
+  },
+  {
+    "url": "https://tools-cluster-interface.iedb.org/tools_api/mhci/",
+    "method": "POST",
+    "input": "method=smm-1.0&sequence_text=SLYNTVATL&allele=HLA-A*02%3A01&length=9",
+    "status": 200,
+    "sha256": "e3846ade3404b22dda66e5bb7c34c932490cd9d6cbe848ee268787bdf3ddc7d1",
+    "bytes": 101,
+    "contentType": "text/tsv",
+    "retrievedAt": "2026-10-05T13:45:43.435Z",
+    "file": "response-02.txt",
+    "originalReceipt": {
+      "folder": "live-supplement-r1",
+      "sha256": "8cc35d7be4ddcbac7876b10b69c507a9ae1c57569c4e4fef737ae489601436cb"
+    }
+  }
+]
