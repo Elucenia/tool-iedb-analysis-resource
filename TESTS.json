@@ -1,15 +1,12 @@
 {
-  "schema": "elucenia-public-research-package-test-evidence-v1",
+  "schema": "elucenia-research-offline-tests-v1",
   "id": "iedb-analysis-resource",
-  "node": "v22.18.0",
-  "command": "node test.cjs",
-  "defaultExecutedTwice": true,
-  "defaultReadOnly": true,
-  "tests": 56,
-  "passed": 56,
-  "failed": 0,
+  "implementationVersion": "ELUCENIA-research-api-2026-10-05-v3",
+  "tests": 58,
+  "passed": 57,
+  "failed": 1,
   "scope": "Offline replays of captured official public/synthetic API responses, exact request/response/version/bounds/locale/timeout/shared-lock contracts. No network, browser, private portal/session or independent provider-model/clinical validation.",
-  "results": [
+  "rows": [
     {
       "name": "fixed public example schema",
       "pass": true
@@ -231,37 +228,17 @@
       "pass": true
     },
     {
+      "name": "compatible release accepted, changed data identity refused",
+      "pass": true
+    },
+    {
+      "name": "shared sources identical across the research tool set",
+      "pass": false,
+      "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n+ [\n+   'cbioportal:src/research-contracts.json',\n+   'ensembl-vep:src/research-contracts.json',\n+   'gprofiler-gost:src/research-contracts.json'\n+ ]\n- []\n"
+    },
+    {
       "name": "shared lock and interrupted IEDB cooldown",
       "pass": true
     }
-  ],
-  "localServerRejections": [
-    {
-      "name": "unknown route",
-      "status": 404,
-      "expected": 404
-    },
-    {
-      "name": "wrong method",
-      "status": 405,
-      "expected": 405
-    },
-    {
-      "name": "invalid confirmation",
-      "status": 422,
-      "expected": 422
-    },
-    {
-      "name": "foreign origin",
-      "status": 403,
-      "expected": 403
-    }
-  ],
-  "sourceReceiptHash": "eb435a7e85d414decd56918fd8cf8a7f377bc1b4f6371e7b8822555f019399eb",
-  "notClaimed": [
-    "compiled ELUCENIA HTTP/browser",
-    "provider algorithm replication",
-    "clinical approval",
-    "professional language review"
   ]
 }

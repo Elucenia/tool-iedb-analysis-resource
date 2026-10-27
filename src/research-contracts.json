@@ -180,6 +180,61 @@
         "publicResearchData"
       ],
       "additionalProperties": false
+    },
+    "ensembl-assembly-map": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "properties": {
+        "assembly": {
+          "const": "hg19"
+        },
+        "variants": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 10,
+          "uniqueItems": true,
+          "items": {
+            "$schema": "https://json-schema.org/draft/2020-12/schema",
+            "type": "object",
+            "properties": {
+              "chromosome": {
+                "type": "string",
+                "pattern": "^(?:[1-9]|1[0-9]|2[0-2]|X|Y)$"
+              },
+              "position": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 250000000
+              },
+              "reference": {
+                "type": "string",
+                "pattern": "^[ACGT]$"
+              },
+              "alternate": {
+                "type": "string",
+                "pattern": "^[ACGT]$"
+              }
+            },
+            "required": [
+              "chromosome",
+              "position",
+              "reference",
+              "alternate"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "publicResearchData": {
+          "const": true,
+          "description": "Only public or synthetic research inputs; no patient/confidential data."
+        }
+      },
+      "required": [
+        "assembly",
+        "variants",
+        "publicResearchData"
+      ],
+      "additionalProperties": false
     }
   },
   "outputSchemas": {
@@ -451,6 +506,51 @@
         ],
         "additionalProperties": false
       }
+    },
+    "ensembl-assembly-map": {
+      "rows": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "chromosome": {
+            "type": "string",
+            "pattern": "^(?:[1-9]|1[0-9]|2[0-2]|X|Y)$"
+          },
+          "position": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "reference": {
+            "type": "string",
+            "pattern": "^[ACGT]$"
+          },
+          "alternate": {
+            "type": "string",
+            "pattern": "^[ACGT]$"
+          },
+          "mappedPosition": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "mappedReference": {
+            "type": "string",
+            "pattern": "^[ACGTN]$"
+          },
+          "referenceMatches": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "chromosome",
+          "position",
+          "reference",
+          "alternate",
+          "mappedPosition",
+          "mappedReference",
+          "referenceMatches"
+        ],
+        "additionalProperties": false
+      }
     }
   },
   "responseSchemas": {
@@ -577,7 +677,8 @@
           "type": "object",
           "properties": {
             "portal": {
-              "const": "v7.1.2"
+              "type": "string",
+              "pattern": "^v7\\.\\d+\\.\\d+$"
             },
             "database": {
               "type": "string"
@@ -586,7 +687,7 @@
               "type": "string"
             },
             "studyImportDate": {
-              "type": "string"
+              "const": "2026-06-05 15:34:03"
             },
             "referenceGenome": {
               "const": "hg19"
@@ -947,7 +1048,8 @@
               "const": 116
             },
             "rest": {
-              "const": "15.12"
+              "type": "string",
+              "pattern": "^15\\.\\d+$"
             },
             "assembly": {
               "const": "GRCh38"
@@ -1205,7 +1307,8 @@
           "type": "object",
           "properties": {
             "gProfiler": {
-              "const": "e114_eg62_p19_27110d83"
+              "type": "string",
+              "pattern": "^e114_eg62_p19_[0-9a-f]{8}$"
             },
             "ensembl": {
               "type": "string"
@@ -1592,6 +1695,269 @@
         "scope"
       ],
       "additionalProperties": false
+    },
+    "ensembl-assembly-map": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "properties": {
+        "toolId": {
+          "const": "ensembl-assembly-map"
+        },
+        "implementationVersion": {
+          "const": "ELUCENIA-research-api-2026-10-05-v3"
+        },
+        "input": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "type": "object",
+          "properties": {
+            "assembly": {
+              "const": "hg19"
+            },
+            "variants": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 10,
+              "uniqueItems": true,
+              "items": {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "properties": {
+                  "chromosome": {
+                    "type": "string",
+                    "pattern": "^(?:[1-9]|1[0-9]|2[0-2]|X|Y)$"
+                  },
+                  "position": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 250000000
+                  },
+                  "reference": {
+                    "type": "string",
+                    "pattern": "^[ACGT]$"
+                  },
+                  "alternate": {
+                    "type": "string",
+                    "pattern": "^[ACGT]$"
+                  }
+                },
+                "required": [
+                  "chromosome",
+                  "position",
+                  "reference",
+                  "alternate"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "publicResearchData": {
+              "const": true,
+              "description": "Only public or synthetic research inputs; no patient/confidential data."
+            }
+          },
+          "required": [
+            "assembly",
+            "variants",
+            "publicResearchData"
+          ],
+          "additionalProperties": false
+        },
+        "retrievedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uri"
+          },
+          "minItems": 3,
+          "maxItems": 4
+        },
+        "rows": {
+          "type": "array",
+          "items": {
+            "$schema": "https://json-schema.org/draft/2020-12/schema",
+            "type": "object",
+            "properties": {
+              "chromosome": {
+                "type": "string",
+                "pattern": "^(?:[1-9]|1[0-9]|2[0-2]|X|Y)$"
+              },
+              "position": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "reference": {
+                "type": "string",
+                "pattern": "^[ACGT]$"
+              },
+              "alternate": {
+                "type": "string",
+                "pattern": "^[ACGT]$"
+              },
+              "mappedPosition": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "mappedReference": {
+                "type": "string",
+                "pattern": "^[ACGTN]$"
+              },
+              "referenceMatches": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "chromosome",
+              "position",
+              "reference",
+              "alternate",
+              "mappedPosition",
+              "mappedReference",
+              "referenceMatches"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "review": {
+          "type": "object",
+          "properties": {
+            "engineeringScope": {
+              "type": "string"
+            },
+            "clinical": {
+              "const": "not-approved"
+            },
+            "professionalLanguage": {
+              "const": "not-approved"
+            }
+          },
+          "required": [
+            "engineeringScope",
+            "clinical",
+            "professionalLanguage"
+          ],
+          "additionalProperties": false
+        },
+        "version": {
+          "type": "object",
+          "properties": {
+            "ensemblReleases": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "minItems": 1
+            },
+            "rest": {
+              "type": "string",
+              "pattern": "^15\\.\\d+$"
+            },
+            "sourceAssembly": {
+              "const": "GRCh37"
+            },
+            "sourceAlias": {
+              "const": "hg19"
+            },
+            "targetAssembly": {
+              "const": "GRCh38"
+            }
+          },
+          "required": [
+            "ensemblReleases",
+            "rest",
+            "sourceAssembly",
+            "sourceAlias",
+            "targetAssembly"
+          ],
+          "additionalProperties": false
+        },
+        "summary": {
+          "type": "object",
+          "properties": {
+            "variants": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10
+            },
+            "referenceMismatches": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10
+            }
+          },
+          "required": [
+            "variants",
+            "referenceMismatches"
+          ],
+          "additionalProperties": false
+        },
+        "rights": {
+          "type": "object",
+          "properties": {
+            "dataLicense": {
+              "type": "string"
+            },
+            "sourceUrl": {
+              "type": "string",
+              "format": "uri"
+            }
+          },
+          "required": [
+            "dataLicense",
+            "sourceUrl"
+          ],
+          "additionalProperties": false
+        },
+        "scope": {
+          "type": "object",
+          "properties": {
+            "species": {
+              "const": "homo_sapiens"
+            },
+            "assemblyEquivalence": {
+              "type": "string"
+            },
+            "chromosomes": {
+              "type": "string"
+            },
+            "variants": {
+              "const": "forward-strand single nucleotide substitutions only"
+            },
+            "referenceBaseCorrection": {
+              "const": false
+            },
+            "clinicalInterpretation": {
+              "const": false
+            }
+          },
+          "required": [
+            "species",
+            "assemblyEquivalence",
+            "chromosomes",
+            "variants",
+            "referenceBaseCorrection",
+            "clinicalInterpretation"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "toolId",
+        "implementationVersion",
+        "input",
+        "retrievedAt",
+        "sources",
+        "rows",
+        "review",
+        "version",
+        "summary",
+        "rights",
+        "scope"
+      ],
+      "additionalProperties": false
     }
   },
   "errorResponseSchema": {
@@ -1604,6 +1970,7 @@
           "PUBLIC_DATA_REQUIRED",
           "UNKNOWN_TOOL",
           "REFERENCE_MISMATCH",
+          "MAPPING_UNAVAILABLE",
           "GENE_UNRESOLVED",
           "VERSION_CHANGED",
           "NOT_FOUND",
@@ -1635,12 +2002,18 @@
           "expectedReference": {
             "type": "string",
             "pattern": "^[ACGT]$"
+          },
+          "mappings": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "mappedChromosome": {
+            "type": "string"
           }
         },
         "required": [
           "chromosome",
-          "position",
-          "expectedReference"
+          "position"
         ],
         "additionalProperties": false
       }
@@ -1653,13 +2026,15 @@
   "additionalConstraints": {
     "ensembl-vep": "reference!==alternate; actual reference base is checked against GRCh38 sequence",
     "gprofiler-gost": "overlap<=querySize and termSize; provider precision/recall must agree with independent ratios within1e-12",
-    "iedb-analysis-resource": "end=start+8; peptide=sequence.slice(start-1,end); each of sequence.length-8 windows occurs exactly once"
+    "iedb-analysis-resource": "end=start+8; peptide=sequence.slice(start-1,end); each of sequence.length-8 windows occurs exactly once",
+    "ensembl-assembly-map": "exactly one mapping on the same chromosome, else MAPPING_UNAVAILABLE; mappedReference is read from the target assembly and reported, never substituted for the supplied reference"
   },
   "errorCodes": [
     "INVALID_INPUT",
     "PUBLIC_DATA_REQUIRED",
     "UNKNOWN_TOOL",
     "REFERENCE_MISMATCH",
+    "MAPPING_UNAVAILABLE",
     "GENE_UNRESOLVED",
     "VERSION_CHANGED",
     "NOT_FOUND",

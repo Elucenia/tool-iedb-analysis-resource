@@ -26,5 +26,8 @@ const disclosure={
  hi:'SMM 1.0 का स्पष्ट अनुरोध किया जाता है। दस्तावेज़ API 2.15 बताते हैं; प्रतिक्रिया चल रहे बाइनरी मॉडल का हैश नहीं देती।'
 };
 const ids=['cbioportal','ensembl-vep','gprofiler-gost','iedb-analysis-resource'];
-function researchDocumentCopy(id,locale){const key=locale==='zh-Hans'?'zh':locale,index=ids.indexOf(id);if(index<0||!messages[key])throw Error('Research document locale or ID');return{review:messages[key][0],rights:messages[key][index+1],methodDisclosure:disclosure[key]};}
+// The assembly-map workflow calls the same Ensembl REST service under the same project disclaimer as the VEP
+// workflow, so it carries that provider's authored rights paragraph instead of a second translation of one license.
+const rightsSource=id=>id==='ensembl-assembly-map'?'ensembl-vep':id;
+function researchDocumentCopy(id,locale){const key=locale==='zh-Hans'?'zh':locale,index=ids.indexOf(rightsSource(id));if(index<0||!messages[key])throw Error('Research document locale or ID');return{review:messages[key][0],rights:messages[key][index+1],methodDisclosure:disclosure[key]};}
 module.exports={researchDocumentCopy,messages,disclosure};

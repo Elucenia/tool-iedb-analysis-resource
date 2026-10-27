@@ -2,7 +2,7 @@
 // Authored filesystem coordination for the two ELUCENIA apps. Lease files contain
 // only process/job metadata, never query values, sequences, cookies or results.
 const fs=require('node:fs/promises'),path=require('node:path'),os=require('node:os'),crypto=require('node:crypto');
-const PROVIDERS=new Set(['cbio','vep','gost','iedb']);
+const PROVIDERS=new Set(['cbio','vep','gost','iedb','map']);
 class ProviderLockError extends Error {constructor(code){super(code);this.name='ProviderLockError';this.code=code;}}
 function createProviderLock(directory,options={}){
  if(typeof directory!=='string'||!path.isAbsolute(directory))throw new ProviderLockError('LOCK_DIRECTORY_REQUIRED');
