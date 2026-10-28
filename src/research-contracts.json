@@ -19,6 +19,10 @@
           "minimum": 1,
           "maximum": 100
         },
+        "includeHotspots": {
+          "type": "boolean",
+          "description": "Opt in to cohort-wide sample counts per protein change; costs one extra bounded request."
+        },
         "publicResearchData": {
           "const": true,
           "description": "Only public or synthetic research inputs; no patient/confidential data."
@@ -583,6 +587,10 @@
               "minimum": 1,
               "maximum": 100
             },
+            "includeHotspots": {
+              "type": "boolean",
+              "description": "Opt in to cohort-wide sample counts per protein change; costs one extra bounded request."
+            },
             "publicResearchData": {
               "const": true,
               "description": "Only public or synthetic research inputs; no patient/confidential data."
@@ -824,6 +832,62 @@
             "originalStudyUrl",
             "licenseUrl",
             "redistributionReview"
+          ],
+          "additionalProperties": false
+        },
+        "hotspots": {
+          "type": "object",
+          "properties": {
+            "recurrent": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "gene": {
+                    "type": "string"
+                  },
+                  "proteinChange": {
+                    "type": "string"
+                  },
+                  "samples": {
+                    "type": "integer",
+                    "minimum": 2
+                  }
+                },
+                "required": [
+                  "gene",
+                  "proteinChange",
+                  "samples"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "minimumSamples": {
+              "const": 2
+            },
+            "distinctProteinChanges": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "nonRecurrentProteinChanges": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "cohortSequencedSamples": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "scope": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "recurrent",
+            "minimumSamples",
+            "distinctProteinChanges",
+            "nonRecurrentProteinChanges",
+            "cohortSequencedSamples",
+            "scope"
           ],
           "additionalProperties": false
         }

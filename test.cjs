@@ -35,6 +35,27 @@ const keepAlive=setInterval(()=>{},1000);let temporary;
    await refuses(mapBody('{"mappings":[]}'),'MAPPING_UNAVAILABLE');
    await refuses(mapBody(JSON.stringify({mappings:[{original:{assembly:'GRCh37',coord_system:'chromosome',seq_region_name:'17',start:7577120,end:7577120,strand:1},mapped:{assembly:'GRCh38',coord_system:'chromosome',seq_region_name:'5',start:1000,end:1000,strand:1}}]})),'MAPPING_UNAVAILABLE');}});
  const base=process.env.ELUCENIA_RESEARCH_TEST_DIRECTORY||os.tmpdir();assert.ok(path.isAbsolute(base));fs.mkdirSync(base,{recursive:true});temporary=fs.mkdtempSync(path.join(base,'elucenia-research-test-'));
+ // Cohort counts are opt-in, cover the whole cohort rather than the page, and refuse a page that came back full
+ // because a count that cannot be shown to be complete is worse than none. The aggregate body is synthetic: the
+ // documented example does not opt in, so there is no captured fixture for this request.
+ await record('cohort hotspot counts opt in, span the cohort and refuse partial pages',async()=>{
+  if(tool.id!=='cbioportal')return;
+  const fetchBase=tool.fixtureFetch(),p=core.POLICY.cbio;
+  const mutation=(sampleId,proteinChange)=>({molecularProfileId:p.profileId,entrezGeneId:7157,sampleId,proteinChange});
+  const aggregate=body=>async(u,o)=>String(u).includes('pageSize='+p.hotspotMaxRows)?new Response(body,{headers:{'Content-Type':'application/json'}}):fetchBase(u,o);
+  const run=(fetchImpl,extra)=>core.createService({fetchImpl}).execute(tool.id,{...sample,...extra});
+  assert.equal((await run(fetchBase,{})).hotspots,undefined);
+  const counted=await run(aggregate(JSON.stringify([['s1','R273H'],['s2','R273H'],['s3','R273H'],['s4','R175H'],['s5','R175H'],['s6','Y220C']].map(a=>mutation(...a)))),{includeHotspots:true});
+  assert.deepEqual(counted.hotspots.recurrent,[{gene:'TP53',proteinChange:'R273H',samples:3},{gene:'TP53',proteinChange:'R175H',samples:2}]);
+  assert.equal(counted.hotspots.minimumSamples,p.hotspotMinSamples);assert.equal(counted.hotspots.distinctProteinChanges,3);assert.equal(counted.hotspots.nonRecurrentProteinChanges,1);
+  assert.equal(counted.hotspots.cohortSequencedSamples,1066);assert.equal(validateEnvelope(tool.id,counted),true);
+  // The same sample counted twice for one change must not inflate the number.
+  const deduped=await run(aggregate(JSON.stringify([mutation('s1','R273H'),mutation('s1','R273H'),mutation('s2','R273H')])),{includeHotspots:true});
+  assert.deepEqual(deduped.hotspots.recurrent,[{gene:'TP53',proteinChange:'R273H',samples:2}]);
+  const full=JSON.stringify(Array.from({length:p.hotspotMaxRows},(x,i)=>mutation('s'+i,'R273H')));
+  await assert.rejects(run(aggregate(full),{includeHotspots:true}),e=>e.code==='UPSTREAM_TOO_LARGE');
+  assert.throws(()=>tool.validate({...sample,includeHotspots:'yes'}));assert.deepEqual(tool.validate({...sample,includeHotspots:false}),{...sample,includeHotspots:false});
+ });
  // The adapters, CLI, harness and licence are one source copied into every package of this set: a divergent copy
  // would make one tool's contract silently different from the others. The tool ids come from the shared module, so
  // the set is whatever that module declares. A published package stands alone and has no siblings to compare.

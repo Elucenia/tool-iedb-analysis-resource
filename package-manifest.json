@@ -111,17 +111,17 @@
     {
       "path": "SOURCE-PROVENANCE.json",
       "bytes": 2700,
-      "sha256": "7b8c235449746435d775eb792b2656aded7544e0d6468236308a2ddf7de33683"
+      "sha256": "805314015d306b645d1486048e682defd9a34583ce8166e4d11453abb5ebb2bc"
     },
     {
       "path": "specification.json",
       "bytes": 19647,
-      "sha256": "380437826b2e8389a9f8cdca778920785deb899460a1f22aafbee93b30497c7f"
+      "sha256": "7ef86ba074b63d42669617069ea7d4257521ca88a99e6f9f6a0b7a6b2649e987"
     },
     {
       "path": "src/research-contracts.json",
-      "bytes": 54090,
-      "sha256": "d1df64f83e7d8edbb2c14f1428c8eec6985dd4de73c53862e8e72e8d3e72eea0"
+      "bytes": 56022,
+      "sha256": "96cc6c856c902a8fb579bf53ced66867550bb7ba8a9d089a36cd943d4572b960"
     },
     {
       "path": "src/research-copy-authored.cjs",
@@ -135,8 +135,8 @@
     },
     {
       "path": "src/research-envelope-schemas.cjs",
-      "bytes": 4928,
-      "sha256": "676153517dfa1bb6ea020886179cbcd6ba729c1069e61c4cc24947c3f4bf2759"
+      "bytes": 5367,
+      "sha256": "6227bdbfe8951524471c4c013e2099c42b0aa6bf54c3568eb388373fcf455988"
     },
     {
       "path": "src/research-input.cjs",
@@ -155,28 +155,28 @@
     },
     {
       "path": "src/research-schemas.cjs",
-      "bytes": 5044,
-      "sha256": "fede8dd0152623077db832ecb08b020e18f643fd973315b7f6a1b7f8b27f91c1"
+      "bytes": 5200,
+      "sha256": "7088c021672086137051bb43de14ef5e91d4e3ad5ee32c280823891e60539d69"
     },
     {
       "path": "src/research-scopes-authored.cjs",
-      "bytes": 12970,
-      "sha256": "4dd879b00e677c4e6bf41539a2a0db606877a4a06903fa66e361b5af8409b7b6"
+      "bytes": 13946,
+      "sha256": "e000836874db1a3feb9c2ec057bfa9e847ae6fa9a11cd2493ccd8f78e5c030ae"
     },
     {
       "path": "src/research-services.cjs",
-      "bytes": 30821,
-      "sha256": "7579ddedf4c524c0dbc105f1cfb7b47ea5512b1653082c99ab4d139bb2f76ba1"
+      "bytes": 33010,
+      "sha256": "cbee3556528a4beb7cbfae94afadc20d4e28c456976bbf8eb22e980085d6ca0d"
     },
     {
       "path": "test.cjs",
-      "bytes": 14988,
-      "sha256": "c05920009fdd0624f5bdbdd1711b7b945e2d339187b2a5032795f4d361aba886"
+      "bytes": 17283,
+      "sha256": "8a1d863377005e2f2356cb29240bb3e1cbd847ec87819fd88c7dd019c27c2200"
     },
     {
       "path": "TESTS.json",
-      "bytes": 5343,
-      "sha256": "e9824203ed143c54d6dce8b836cb9adcbc9b75b455ea45a77c01485d8f4948da"
+      "bytes": 5215,
+      "sha256": "554f775e643082a0018351ef29b0c8c795aa1b11ff09ba31688e1d8737f3df05"
     },
     {
       "path": "tool.cjs",

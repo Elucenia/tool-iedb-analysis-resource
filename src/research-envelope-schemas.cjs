@@ -7,15 +7,17 @@ const object=(properties,optional=[])=>({type:'object',properties,required:Objec
 const constant=value=>({const:value});
 const patterned=pattern=>({type:'string',pattern});
 const jsonObject={type:'object',description:'Provider gene-mapping metadata, retained as JSON source data; nested keys are provider-defined.'};
-function envelope(id,extra){return {$schema:'https://json-schema.org/draft/2020-12/schema',...object({toolId:constant(id),implementationVersion:constant('ELUCENIA-research-api-2026-10-05-v3'),input:inputSchemas[id],retrievedAt:{type:'string',format:'date-time'},sources:{...array(uri),minItems:3,maxItems:4},rows:array(outputSchemas[id].rows),review:object({engineeringScope:str,clinical:constant('not-approved'),professionalLanguage:constant('not-approved')}),...extra})};}
+function envelope(id,extra,optional=[]){return {$schema:'https://json-schema.org/draft/2020-12/schema',...object({toolId:constant(id),implementationVersion:constant('ELUCENIA-research-api-2026-10-05-v3'),input:inputSchemas[id],retrievedAt:{type:'string',format:'date-time'},sources:{...array(uri),minItems:3,maxItems:4},rows:array(outputSchemas[id].rows),review:object({engineeringScope:str,clinical:constant('not-approved'),professionalLanguage:constant('not-approved')}),...extra},optional)};}
 const responseSchemas={
  [ID.cbio]:envelope(ID.cbio,{
   version:object({portal:patterned(POLICY.cbio.versionPattern),database:str,commit:str,studyImportDate:constant(POLICY.cbio.studyImportDate),referenceGenome:constant('hg19')}),
   study:object({id:constant(POLICY.cbio.studyId),name:str,citation:str,pmids:array(str),sampleCount:integer,sequencedSampleCount:integer}),
   pagination:object({page:{type:'integer',minimum:1,maximum:100},pageSize:constant(25),hasNextPage:bool,nextPageMayBeEmpty:constant(true),totalRecords:constant(null)}),
   summary:object({rowsOnThisPage:{type:'integer',minimum:0,maximum:25},distinctSamplesOnThisPage:{type:'integer',minimum:0,maximum:25},mutationTypesOnThisPage:{type:'object',additionalProperties:integer}}),
-  rights:object({dataLicense:str,attribution:str,originalStudyUrl:uri,licenseUrl:uri,redistributionReview:str})
- }),
+  rights:object({dataLicense:str,attribution:str,originalStudyUrl:uri,licenseUrl:uri,redistributionReview:str}),
+  // Present only when the input opted in. Cohort-wide, deliberately outside the page-scoped `summary`.
+  hotspots:object({recurrent:array(object({gene:str,proteinChange:str,samples:{type:'integer',minimum:POLICY.cbio.hotspotMinSamples}})),minimumSamples:constant(POLICY.cbio.hotspotMinSamples),distinctProteinChanges:integer,nonRecurrentProteinChanges:integer,cohortSequencedSamples:integer,scope:str})
+ },['hotspots']),
  [ID.vep]:envelope(ID.vep,{
   version:object({ensembl:constant(POLICY.vep.release),rest:patterned(POLICY.vep.restVersionPattern),assembly:constant(POLICY.vep.assembly)}),
   rights:object({dataLicense:str,sourceUrl:uri}),

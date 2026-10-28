@@ -4,7 +4,7 @@
   "implementationVersion": "ELUCENIA-research-api-2026-10-05-v3",
   "sourceSnapshot": {
     "websiteFreezeSha256": "b7ff37bd2e4c18b959c3431d9ff57d8ec654fbafacb0443eaea8be0c4a68b435",
-    "methodTransportSha256": "7579ddedf4c524c0dbc105f1cfb7b47ea5512b1653082c99ab4d139bb2f76ba1",
+    "methodTransportSha256": "cbee3556528a4beb7cbfae94afadc20d4e28c456976bbf8eb22e980085d6ca0d",
     "providerLockSha256": "5c06f5e524e2f5552a0c912eed497b912ab220b91b1a3b984e1eb8a3bc6836a0"
   },
   "primarySources": [

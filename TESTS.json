@@ -2,9 +2,9 @@
   "schema": "elucenia-research-offline-tests-v1",
   "id": "iedb-analysis-resource",
   "implementationVersion": "ELUCENIA-research-api-2026-10-05-v3",
-  "tests": 58,
-  "passed": 57,
-  "failed": 1,
+  "tests": 59,
+  "passed": 59,
+  "failed": 0,
   "scope": "Offline replays of captured official public/synthetic API responses, exact request/response/version/bounds/locale/timeout/shared-lock contracts. No network, browser, private portal/session or independent provider-model/clinical validation.",
   "rows": [
     {
@@ -232,9 +232,12 @@
       "pass": true
     },
     {
+      "name": "cohort hotspot counts opt in, span the cohort and refuse partial pages",
+      "pass": true
+    },
+    {
       "name": "shared sources identical across the research tool set",
-      "pass": false,
-      "error": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n+ [\n+   'cbioportal:src/research-contracts.json',\n+   'ensembl-vep:src/research-contracts.json',\n+   'gprofiler-gost:src/research-contracts.json'\n+ ]\n- []\n"
+      "pass": true
     },
     {
       "name": "shared lock and interrupted IEDB cooldown",

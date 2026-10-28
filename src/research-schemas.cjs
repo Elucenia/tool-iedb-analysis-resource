@@ -5,7 +5,7 @@ const genes=max=>({type:'array',items:gene,minItems:1,maxItems:max,uniqueItems:t
 const confirmed={const:true,description:'Only public or synthetic research inputs; no patient/confidential data.'};
 const input=(props,optional=[])=>({$schema:'https://json-schema.org/draft/2020-12/schema',type:'object',properties:props,required:Object.keys(props).filter(k=>!optional.includes(k)),additionalProperties:false});
 const inputSchemas={
- [ID.cbio]:input({genes:genes(5),page:{type:'integer',minimum:1,maximum:100},publicResearchData:confirmed}),
+ [ID.cbio]:input({genes:genes(5),page:{type:'integer',minimum:1,maximum:100},includeHotspots:{type:'boolean',description:'Opt in to cohort-wide sample counts per protein change; costs one extra bounded request.'},publicResearchData:confirmed},['includeHotspots']),
  [ID.vep]:input({assembly:{const:'GRCh38'},variants:{type:'array',minItems:1,maxItems:10,uniqueItems:true,items:input({chromosome:{type:'string',pattern:'^(?:[1-9]|1[0-9]|2[0-2]|X|Y|MT)$'},position:{type:'integer',minimum:1,maximum:250000000},reference:{type:'string',pattern:'^[ACGT]$'},alternate:{type:'string',pattern:'^[ACGT]$'}})},publicResearchData:confirmed}),
  [ID.gost]:input({genes:genes(100),sources:{type:'array',minItems:1,maxItems:3,uniqueItems:true,items:{enum:POLICY.gost.sources}},threshold:{type:'number',exclusiveMinimum:0,maximum:1},correction:{enum:['g_SCS','bonferroni','fdr']},excludeElectronic:{type:'boolean'},background:genes(1000),publicResearchData:confirmed},['background']),
  [ID.iedb]:input({sequence:{type:'string',minLength:9,maxLength:200,pattern:'^[ACDEFGHIKLMNPQRSTVWY]+$'},allele:{enum:POLICY.iedb.alleles},publicResearchData:confirmed}),
